@@ -1,5 +1,15 @@
 console.log('Hello from app.js! Your JavaScript is connected and running!');
 
+/// connect module order-handler.js
+import * as orderForm from "./order-handler.js";
+
+
+
+
+
+
+
+
 // We use document.getElementById() to get a reference to an element by its unique ID in HTML file
 // We store these references in 'const' variables because the elements themselves won't change.
 const totalDisplayElement = document.getElementById("total-display");
