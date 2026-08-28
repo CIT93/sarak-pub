@@ -1,52 +1,44 @@
 console.log('Hello from app.js! Your JavaScript is connected and running!');
 
-/// connect module order-handler.js
+// connect module order-handler.js
 import * as orderForm from "./order-handler.js";
 
+// reference to form id
+const shirtOrderForm = document.getElementById('order-form');
 
+// reference to order summary
+const shirtOrderSummary = document.getElementById('order-summary');
 
+// handleOrderSubmit function: import data from module, message changes
+// remember: ${variable} is undefined; you need ${orderFormData.variable} instead
+const handleOrderSubmit = function(event) {
+    event.preventDefault();
+    const orderFormData = orderForm.getOrderInputs();
+    console.log(orderFormData);
+    console.log(`Quantity is ${orderFormData.qty}.`);
+    console.log(`Size is ${orderFormData.size}.`);
+    console.log(`Gift wrap is ${orderFormData.giftWrap}.`);
+    shirtOrderSummary.textContent = `Your current order is ${orderFormData.qty} ${orderFormData.size} T-Shirt`;
 
-
-
-
-
-// We use document.getElementById() to get a reference to an element by its unique ID in HTML file
-// We store these references in 'const' variables because the elements themselves won't change.
-const totalDisplayElement = document.getElementById("total-display");
-const addItemButton = document.getElementById("add-item-btn");
-
-// 'let' variables change, 'const' do not
-const itemPrice = 15;
-let totalCost = 0;
-
-// function to record effect of a click (adds itemPrice to totalCost)
-const handleButtonClick = function() {
-    totalCost += itemPrice;
-    let message = `Current Total: $${totalCost}`;
-
-    // 'if' 'else' function to change message + color based on totalCost
-    if(totalCost >= 60) {
-        message += ' (Over budget!)';
-        totalDisplayElement.style.color = 'red';
+    if (orderFormData.qty <= 1) {
+        shirtOrderSummary.textContent += '.';
+    } else if (orderFormData.qty === 8272026) {
+        shirtOrderSummary.textContent += 's. (We offer a special discount for this exact number of shirts!)';
     } else {
-        totalDisplayElement.style.color = 'green';
-    }
+        shirtOrderSummary.textContent += 's.';
+    };
 
-    totalDisplayElement.textContent = message;
+    if (orderFormData.giftWrap === true) {
+        shirtOrderSummary.textContent += ' Gift wrap added!';
+    };
 
-    console.log(`Item added! Total cost: ${totalCost}`);
 };
 
+// init function: listens for submit, then calls handleOrderSubmit function
+const init = function() {
+    console.log(`App initialized for init function!`);
+    shirtOrderForm.addEventListener('submit', handleOrderSubmit);
+};
 
-document.addEventListener('DOMContentLoaded', function(){
-    // This part ensures our JavaScript code runs only AFTER the HTML is fully loaded and parsed.
-    // The 'DOMContentLoaded' event is perfect for this. It fires when the HTML document is ready.
-
-    console.log(`DOM fully loaded and parsed, App is ready for interaction`);
-    
-    // eventListener means when event happens, function occurs
-    // When addItemButton receives a 'click' event, the 'handleButtonClick' function will execute.
-    addItemButton.addEventListener('click', handleButtonClick);
-
-    totalDisplayElement.textContent = `Welcome! Click the button below to add items and start shopping.`;
-});
+// waits for the DOM, then calls init function
+document.addEventListener ('DOMContentLoaded', init);
