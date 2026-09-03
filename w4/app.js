@@ -1,7 +1,11 @@
 console.log('Hello from app.js! Your JavaScript is connected and running!');
 
-// connect module order-handler.js
+// connect modules
 import * as orderForm from "./order-handler.js";
+import * as priceCalculator from "./price-calculator.js";
+
+// entry array literal
+const orders = [];
 
 // reference to form id
 const shirtOrderForm = document.getElementById('order-form');
@@ -14,8 +18,17 @@ const shirtOrderSummary = document.getElementById('order-summary');
 const handleOrderSubmit = function(event) {
     event.preventDefault();
     const orderData = orderForm.getOrderInputs();
-    console.log(orderData);
-    console.log(`Quantity: ${orderData.qty}. Size: ${orderData.size}. Gift wrap: ${orderData.giftWrap}`);
+    // console.log(orderData);
+
+    const calculatedPrice = priceCalculator.calculateTotal(orderData);
+    const newOrder = {
+        ...orderData,
+        ...calculatedPrice,
+        timestamp: new Date().toISOString()
+    };
+    orders.push(newOrder);
+    console.log(orders);
+
     shirtOrderSummary.textContent = `Your current order is ${orderData.qty} ${orderData.size} T-Shirt`;
 
     if (orderData.qty <= 1) {
