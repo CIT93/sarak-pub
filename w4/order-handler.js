@@ -1,15 +1,10 @@
 // order-handler.js module to collect the data and export to main app.js
 
-// get form id
+// grab references
 const shirtOrderForm = document.getElementById('order-form');
 
-// get quantity input (number)
 const quantityInput = shirtOrderForm.querySelector('#qty');
-
-// get gift wrap input (check)
 const giftWrapInput = shirtOrderForm.querySelector('#gift-wrap');
-
-// get size input (radiooooo) (multiple inputs, use query all)
 const sizeInputRadios = shirtOrderForm.querySelectorAll('input[name="size"]');
 
 // evaluate radio selection; checks if radio option is selected (radio.checked)
@@ -18,19 +13,12 @@ const sizeInputRadios = shirtOrderForm.querySelectorAll('input[name="size"]');
 // radioButtons is the function name (?)
 const getSelectedRadio = function(radioButtons) {
     for (const radio of radioButtons) {
-        if (radio.checked) {
-            // console.log(`Radio ${radio.value} is deemed ${radio.checked}`);
-            return radio.value;
-        };
+        if (radio.checked) return radio.value;
     };
 };
 
-
 // export collected data back to main app.js w/ object literal
 // return assigns the obj lit to variable getOrderInputs
-// qty: parseInt = number, || sets default fallback value
-// size: gets value of getSelectedRadio by running function radioButtons on sizeInputRadios
-// giftWrap: checks if input is [un]selected
 export const getOrderInputs = function() {
     return {
         qty: parseInt(quantityInput.value) || 1,
@@ -39,3 +27,10 @@ export const getOrderInputs = function() {
     };
 };
 
+// clearForm function to reset form, restore defaults
+export const clearForm = function() {
+    shirtOrderForm.reset();
+    quantityInput.value = 1;
+    giftWrapInput.checked = false;
+    sizeInputRadios[0].checked;
+};
