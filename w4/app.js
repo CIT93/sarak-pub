@@ -10,25 +10,23 @@ const shirtOrderForm = document.getElementById('order-form');
 const shirtOrderSummary = document.getElementById('order-summary');
 
 // handleOrderSubmit function: import data from module, message changes
-// remember: ${variable} is undefined; you need ${orderFormData.variable} instead
+// remember: ${variable} is undefined; you need ${orderData.variable} instead
 const handleOrderSubmit = function(event) {
     event.preventDefault();
-    const orderFormData = orderForm.getOrderInputs();
-    console.log(orderFormData);
-    console.log(`Quantity is ${orderFormData.qty}.`);
-    console.log(`Size is ${orderFormData.size}.`);
-    console.log(`Gift wrap is ${orderFormData.giftWrap}.`);
-    shirtOrderSummary.textContent = `Your current order is ${orderFormData.qty} ${orderFormData.size} T-Shirt`;
+    const orderData = orderForm.getOrderInputs();
+    console.log(orderData);
+    console.log(`Quantity: ${orderData.qty}. Size: ${orderData.size}. Gift wrap: ${orderData.giftWrap}`);
+    shirtOrderSummary.textContent = `Your current order is ${orderData.qty} ${orderData.size} T-Shirt`;
 
-    if (orderFormData.qty <= 1) {
+    if (orderData.qty <= 1) {
         shirtOrderSummary.textContent += '.';
-    } else if (orderFormData.qty === 8272026) {
+    } else if (orderData.qty === 8272026) {
         shirtOrderSummary.textContent += 's. (We offer a special discount for this exact number of shirts!)';
     } else {
         shirtOrderSummary.textContent += 's.';
     };
 
-    if (orderFormData.giftWrap === true) {
+    if (orderData.giftWrap === true) {
         shirtOrderSummary.textContent += ' Gift wrap added!';
     };
 
