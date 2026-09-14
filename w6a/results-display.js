@@ -1,4 +1,4 @@
-// results-display.js module to display data
+// order-display.js module to display data
 
 // grab references
 const orderSummaryContainer = document.getElementById('order-summary');
@@ -15,11 +15,11 @@ const giftWrapMessage = function(giftWrap) {
 };
 
 // show order summary data
-export const displayResults = function(results) {
-    totalPriceDisplay.textContent = `${results.totalPrice.toFixed(2)}`;
-    qtyDisplay.textContent = `${results.qty.toFixed(0)}`;
-    sizeDisplay.textContent = `${results.size}`;
-    giftWrapDisplay.textContent = giftWrapMessage(results.giftWrap);
+export const displayOrder = function(order) {
+    totalPriceDisplay.textContent = `${order.totalPrice.toFixed(2)}`;
+    qtyDisplay.textContent = `${order.qty.toFixed(0)}`;
+    sizeDisplay.textContent = `${order.size}`;
+    giftWrapDisplay.textContent = giftWrapMessage(order.giftWrap);
 
     orderSummaryContainer.style.display = 'block';
 };
