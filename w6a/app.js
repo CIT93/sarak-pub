@@ -28,6 +28,8 @@ const handleOrderSubmit = function(event) {
         timestamp: new Date().toISOString()
     };
     orders.push(newOrder);
+    console.log(orders);
+    orderStorage.saveOrders(orders);
 
     resultsDisplay.displayOrder(newOrder);
 };

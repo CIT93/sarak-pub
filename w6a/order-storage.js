@@ -1,14 +1,14 @@
 // order-storage.js module for storing data in localStorage
 
 // define LOCAL_STORAGE_KEY
-const tshirt_orders_data = 'orders';
+const LOCAL_STORAGE_KEY = 'tshirt_orders_data';
 
 // saveOrders function to store data in localStorage
 // reminder: localStorage only handles strings (stringify time)
 export const saveOrders = function(orders) {
 
     try {
-        localStorage.setItem('orders', JSON.stringify(orders));
+        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(orders));
         console.log(`Data successfully saved to localStorage`);
     } catch (error) {
         console.error(`Error: Data not saved to localStorage - ${error}`);
@@ -21,12 +21,12 @@ export const saveOrders = function(orders) {
 export const loadOrders = function() {
 
     try {
-        const dataString = localStorage.getItem(tshirt_orders_data);
+        const dataString = localStorage.getItem(LOCAL_STORAGE_KEY);
         if (dataString) return JSON.parse(dataString);
         return [];
     } catch (error) {
         console.error(`Error: data not loaded from localStorage - ${error}`);
-        localStorage.removeItem(tshirt_orders_data);
+        localStorage.removeItem(LOCAL_STORAGE_KEY);
     };
 
 };
