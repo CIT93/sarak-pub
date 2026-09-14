@@ -4,6 +4,7 @@ console.log('Hello from app.js! Your JavaScript is connected and running!');
 import * as orderForm from "./order-handler.js";
 import * as priceCalculator from "./price-calculator.js";
 import * as resultsDisplay from "./results-display.js";
+import * as orderStorage from "./order-storage.js";
 
 // entry array literal
 const orders = [];
@@ -40,6 +41,15 @@ const handleClearForm = function() {
 // init function: listens for submit, then calls handleOrderSubmit function
 const init = function() {
     console.log(`App initialized for init function!`);
+
+    const loadedOrders = orderStorage.loadOrders();
+    if (loadedOrders.length > 0) {
+        orders.push(...loadedOrders);
+        console.log(`Orders loaded from localStorage`);
+    } else {
+        console.log(`No orders found in localStorage; starting fresh`);
+    };
+
     shirtOrderForm.addEventListener('submit', handleOrderSubmit);
     clearFormButton.addEventListener('click', handleClearForm);
 };
