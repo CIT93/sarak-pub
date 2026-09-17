@@ -1,5 +1,7 @@
-// get reference to tbody
-const orderTableBody = document.getElementById('order-table-body');
+// get reference to table, tbody; added order hist msg
+const orderTable = document.getElementById('order-table');
+const orderTableBody = orderTable.querySelector('#order-table-body');
+const orderHistoryMessage = document.getElementById('orderHistoryMessage');
 
 // formatDateForDisplay function to show date as MTH DD, YYYY
 const formatDateForDisplay = function(timestamp) {
@@ -19,6 +21,15 @@ const giftWrapMessage = function(giftWrap) {
 export const renderOrders = function(orders) {
 
     orderTableBody.innerHTML = ``;
+
+    if (orders.length === 0) {
+        orderTable.style.display = 'none';
+        orderHistoryMessage.style.display = 'block';
+        return;
+    } else {
+        orderTable.style.display = 'table';
+        orderHistoryMessage.style.display = 'none';
+    };
 
     for(const order of orders) {
         
