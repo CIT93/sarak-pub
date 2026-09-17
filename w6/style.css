@@ -5,7 +5,7 @@ body {
     color: #333;
 }
 
-h1 {
+h1, h2 {
     color: #0b4180;
     font-variant: small-caps;
 }
@@ -22,4 +22,28 @@ p {
    background-color: #ffffff;
    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
    border-radius: 8px;
+}
+
+button {
+    font: inherit;
+    width: 125px;
+    height: 30px;
+}
+
+table {
+    border: 1px solid #333;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+tr:hover {
+    background-color: #ffffff;
+}
+
+th, td {
+    padding: 10px;
+}
+
+th {
+    background-color: #bcc2d2;
 }
