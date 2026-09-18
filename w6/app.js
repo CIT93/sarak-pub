@@ -1,6 +1,7 @@
 console.log('Hello from app.js! Your JavaScript is connected and running!');
 
 // connect modules
+// no resultsDisplay module = no access to resultsDisplay functions
 import * as orderForm from "./order-handler.js";
 import * as priceCalculator from "./price-calculator.js";
 // import * as resultsDisplay from "./results-display.js";
@@ -16,8 +17,10 @@ const shirtOrderForm = document.getElementById('order-form');
 // reference to clear form button
 const clearFormButton = shirtOrderForm.querySelector('#clear-form-button');
 
-// handleOrderSubmit function: import data from module, message changes
-// remember: ${variable} is undefined; you need ${orderData.variable} instead
+// reference to clear order history button
+const clearOrderHistoryButton = document.getElementById('clear-btn');
+
+// handleOrderSubmit function
 const handleOrderSubmit = function(event) {
     event.preventDefault();
     const orderData = orderForm.getOrderInputs();
@@ -40,7 +43,15 @@ const handleClearForm = function() {
     // resultsDisplay.hideResults();
 };
 
-// init function: listens for submit, then calls handleOrderSubmit function
+// handleClearOrderHistory function
+// empties orders array, removes localStorage data, rerenders table
+const handleClearOrderHistory = function() {
+    orders.length = 0;
+    orderStorage.clearAllOrders();
+    orderList.renderOrders(orders);
+};
+
+// init function: includes eventListeners to trigger other functions
 const init = function() {
     console.log(`App initialized for init function!`);
 
@@ -55,6 +66,7 @@ const init = function() {
 
     shirtOrderForm.addEventListener('submit', handleOrderSubmit);
     clearFormButton.addEventListener('click', handleClearForm);
+    clearOrderHistoryButton.addEventListener('click', handleClearOrderHistory);
 };
 
 // waits for the DOM, then calls init function

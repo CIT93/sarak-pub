@@ -24,9 +24,9 @@ p {
    border-radius: 8px;
 }
 
+/* wk6: added css for button, table + table elements */
 button {
     font: inherit;
-    width: 125px;
     height: 30px;
 }
 

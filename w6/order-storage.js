@@ -30,3 +30,10 @@ export const loadOrders = function() {
     };
 
 };
+
+
+// clearAllOrders to delete order history
+export const clearAllOrders = function() {
+    localStorage.removeItem(LOCAL_STORAGE_KEY);
+    console.log(`All orders cleared from localStorage under key: ${LOCAL_STORAGE_KEY}`);
+};
