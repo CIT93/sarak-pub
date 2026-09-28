@@ -25,7 +25,7 @@ const clearAllDataButton = document.getElementById('clearAllDataButton');
 
 // State variables for in-line confirmation of "Clear All Data" button.
 let isConfirmingClearAll = false;
-const clearAllTimeoutId = null;
+let clearAllTimeoutId = null;   // error fixed: changed const to let, so value can be reassigned later
 
 // New function for resetClearAllButton
 // Resets the "Clear All Data" button to its original text and appearance.
