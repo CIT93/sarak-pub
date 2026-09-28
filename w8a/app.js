@@ -24,8 +24,8 @@ const clearFormButton = document.getElementById('clearFormButton');
 const clearAllDataButton = document.getElementById('clearAllDataButton');
 
 // State variables for in-line confirmation of "Clear All Data" button.
-let isConfirmingClearAll = false;   // Tracks if the button is in a "confirming" state.
-let clearAllTimeoutId = null;   // Stores the ID returned by setTimeout, so we can cancel it.
+let isConfirmingClearAll = false;
+const clearAllTimeoutId = null;
 
 // New function for resetClearAllButton
 // Resets the "Clear All Data" button to its original text and appearance.
@@ -180,23 +180,19 @@ const init = function() {
 
     // init function - Event listener for "Clear All Data"
     clearAllDataButton.addEventListener('click', function(event) {
-        event.stopPropagation();    // Prevents this click from potentially triggering other global click listeners.
+        event.stopPropagation();
+
         if (isConfirmingClearAll) {
-            // Second click: User confirms, so perform the action.
             performClearAllData();
         } else {
-            // First click: Ask for confirmation by changing button text and state.
             isConfirmingClearAll = true;
             clearAllDataButton.textContent = `Are you sure? Click again`;
-            // Add a class to change its appearance (defined in style.css).
             clearAllDataButton.classList.add('confirm-state');
-            // Set a timeout to automatically revert the button state if the user doesn't click again.
             clearAllTimeoutId = setTimeout(function() {
                 resetClearAllButton();
                 console.log(`Clear All confirmation timed out`);
-            }, 3000);   // 3 seconds
+            }, 3000);
         }
-        
     });
 
     // Global click listener to reset the "Clear All Data" button state
