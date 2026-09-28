@@ -41,7 +41,7 @@ const calculateFoodDietPoints = function(dietType) {
         case 'vegetarian': return 4;
         case 'vegan': return 2;
         default: return 0;
-    }
+    ]
 };
 
 // --- Part 3: Code Food Packaging and Total Points ---
