@@ -43,34 +43,13 @@ const getSelectedRadioValue = function(radioButtons) {
 // Collects all relevant input values from the form for Household Size, Home Size, and Food Choices.
 // @returns {Object} An object containing all the collected input values.
 export const getFormInputs = function() {
-    // console.log('Get Form Inputs');
-
-    // Read the 'value' from number inputs and convert to numbers
-    // Read the 'checked' property for checkboxes.
-
-    // Declare a locally scoped valued for square footage
-    // const homeSquareFootage = parseInt(homeSquareFootageInput.value) || 0;
-    // Declare a locally scoped valued for is apartment
-    // const isApartment = isApartmentInput.checked;
-    // return houseHoldMember to app.js handleFormSubmit function
-
-    // Refactor return to be an object literal
-    //const objLiteral = {
-    //    householdMembers: parseInt(householdMembersInput.value) || 1,
-    //    homeSquareFootage: parseInt(homeSquareFootageInput.value) || 0,
-    //    isApartment: isApartmentInput.checked
-    //};
-
-    // const selectDietType = getSelectedRadioValue(dietTypeRadios);
-
     return {
         householdMembers: parseInt(householdMembersInput.value) || 1,
-        homeSquareFootage: parseInt(homeSquareFootageInput.value) || 0,
+        homeSquareFootage: parseInt(householdMembersInput.value) || 0,
         isApartment: isApartmentInput.checked,
         dietType: getSelectedRadioValue(dietTypeRadios),
         foodPackaging: getSelectedRadioValue(foodPackagingRadios)
     };
-
 };
 
 // Clears all input fields in the form and resets default selections.
