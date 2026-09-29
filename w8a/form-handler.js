@@ -45,7 +45,7 @@ const getSelectedRadioValue = function(radioButtons) {
 export const getFormInputs = function() {
     return {
         householdMembers: parseInt(householdMembersInput.value) || 1,
-        homeSquareFootage: parseInt(householdMembersInput.value) || 0,
+        homeSquareFootage: parseInt(homeSquareFootageInput.value) || 0,     // error fixed: value from homeSquareFootageInput, not householdMembersInput
         isApartment: isApartmentInput.checked,
         dietType: getSelectedRadioValue(dietTypeRadios),
         foodPackaging: getSelectedRadioValue(foodPackagingRadios)
