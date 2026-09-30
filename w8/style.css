@@ -28,6 +28,43 @@ p {
 button {
     font: inherit;
     height: 30px;
+    border-radius: 0;
+    border-color: #333333;
+}
+
+button:hover {
+    background-color: #51515125;
+}
+
+button:active {
+    background-color: #51515150;
+}
+
+.edit-btn {
+    background-color: #dfe6ff;
+    border-color: #4a578c;
+    /* border: 1px solid #6b6f94; */
+}
+
+.edit-btn:hover {
+    background-color: #c3cbed;
+}
+
+.edit-btn:active {
+    background-color: #95a1d6;
+}
+
+.delete-btn {
+    background-color: #f5cece;
+    border-color: #7d4747;
+}
+
+.delete-btn:hover {
+    background-color: #e1bcbc;
+}
+
+.delete-btn:active {
+    background-color: #c68d8d;
 }
 
 table {

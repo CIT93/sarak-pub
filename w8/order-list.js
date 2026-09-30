@@ -51,7 +51,10 @@ export const renderOrders = function(orders) {
             <td>${order.size}</td>
             <td>${giftWrapMessage(order.giftWrap)}</td>
             <td>$${order.totalPrice.toFixed(2)}</td>
-            <td>TBA</td>
+            <td>
+                <button class="edit-btn" data-id="${order.id}">Edit</button>
+                <button class="delete-btn" data-id="${order.id}">Delete</button>
+            </td>
         `;
 
         orderTableBody.appendChild(row);
