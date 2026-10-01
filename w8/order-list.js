@@ -1,3 +1,6 @@
+// variable to store and pass callbacks (ex. onDelete, onEdit)
+let moduleCallbacks = {};
+
 // get references to main section, table, tbody, msg, btn
 const orderHistorySection = document.getElementById('order-history-section');
 
@@ -34,16 +37,20 @@ orderTableBody.addEventListener('click', function(event) {
     // there will be no ID. So we stop the function immediately.
     if (!id) return;
 
-    // 3. Temporary Test: Log the ID to prove it works!
-    console.log(`Clicked button with id:`, id);
+    // 3. Determine which button was clicked and fire off the right function if it exists
+    if (target.classList.contains('delete-btn') && moduleCallbacks.onDelete) moduleCallbacks.onDelete(id);
+    else if (target.classList.contains('edit-btn') && moduleCallbacks.onEdit) moduleCallbacks.onEdit(id);
 });
 
 
 // renderOrders function to render table rows
-// empties table, prevent duplicates; changes displays
+// orderList.renderOrders in app.js passes (orders, {...}); orders=orders, {...}=callbacks
+// empties table/prevent duplicates; changes displays
 // for each order, create row (<tr>) and add cells (<td>)
 // appendChild adds new row to end of table parent
-export const renderOrders = function(orders) {
+export const renderOrders = function(orders, callbacks) {
+    // Save the callbacks for later
+    moduleCallbacks = callbacks;
 
     orderTableBody.innerHTML = ``;
 

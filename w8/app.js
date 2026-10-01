@@ -20,7 +20,7 @@ const clearFormButton = shirtOrderForm.querySelector('#clear-form-button');
 // reference to clear order history button
 const clearOrderHistoryButton = document.getElementById('clear-btn');
 
-// handleOrderSubmit function
+// handleOrderSubmit function (place order btn)
 const handleOrderSubmit = function(event) {
     event.preventDefault();
     const orderData = orderForm.getOrderInputs();
@@ -35,21 +35,37 @@ const handleOrderSubmit = function(event) {
     console.log(orders);
     orderStorage.saveOrders(orders);
     // resultsDisplay.displayOrder(newOrder);
-    orderList.renderOrders(orders);
+    orderList.renderOrders(orders, {
+        onDelete: handleDelete,
+        onEdit: handleEdit
+    });
 };
 
-// handleClearForm function to reset form
+// handleClearForm function (clear form btn)
 const handleClearForm = function() {
     orderForm.clearForm();
     // resultsDisplay.hideResults();
 };
 
-// handleClearOrderHistory function
+// handleClearOrderHistory function (clear order hist btn)
 // empties orders array, removes localStorage data, rerenders table
 const handleClearOrderHistory = function() {
     orders.length = 0;
     orderStorage.clearAllOrders();
-    orderList.renderOrders(orders);
+    orderList.renderOrders(orders, {
+        onDelete: handleDelete,
+        onEdit: handleEdit
+    });
+};
+
+// handleDelete function (table delete btn)
+const handleDelete = function(id) {
+    console.log(`App.js: Requesting delete for order`, id);
+};
+
+// handleEdit function (table edit btn)
+const handleEdit = function(id) {
+    console.log(`App.js: Requesting edit for order`, id);
 };
 
 // init function: includes eventListeners to trigger other functions
@@ -60,7 +76,10 @@ const init = function() {
     if (loadedOrders.length > 0) {
         orders.push(...loadedOrders);
         console.log(`Orders loaded from localStorage`);
-        orderList.renderOrders(orders);
+        orderList.renderOrders(orders, {
+            onDelete: handleDelete,
+            onEdit: handleEdit
+        });
     } else {
         console.log(`No orders found in localStorage; starting fresh`);
     };
