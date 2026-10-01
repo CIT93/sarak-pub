@@ -22,9 +22,25 @@ const giftWrapMessage = function(giftWrap) {
     return 'No';
 };
 
+// event delegation: listen for clicks within element (tbody) then fires function
+// event is the click; target is what user clicked
+orderTableBody.addEventListener('click', function(event) {
+    const target = event.target;
+    
+    // 1. Get the ID from the button that was clicked
+    const id = target.dataset.id;
+
+    // 2. Guard Clause: If they clicked a row (white space) but NOT a button, 
+    // there will be no ID. So we stop the function immediately.
+    if (!id) return;
+
+    // 3. Temporary Test: Log the ID to prove it works!
+    console.log(`Clicked button with id:`, id);
+});
+
+
 // renderOrders function to render table rows
-// empties table; prevent duplicates
-// changes displays; e.g. no orders in localStorage, don't display table
+// empties table, prevent duplicates; changes displays
 // for each order, create row (<tr>) and add cells (<td>)
 // appendChild adds new row to end of table parent
 export const renderOrders = function(orders) {
@@ -43,7 +59,6 @@ export const renderOrders = function(orders) {
     };
 
     for(const order of orders) {
-        
         const row = document.createElement('tr');
         row.innerHTML = `
             <td>${formatDateForDisplay(order.timestamp)}</td>
@@ -58,7 +73,6 @@ export const renderOrders = function(orders) {
         `;
 
         orderTableBody.appendChild(row);
-
     };
 
 };
