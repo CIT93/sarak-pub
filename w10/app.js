@@ -62,12 +62,12 @@ const handleClearOrderHistory = function() {
 const handleDelete = function(id) {
     console.log(`App.js: Requesting delete for order`, id);
 
-    let index = orders.findIndex(function(order) {
+    let indexToDelete = orders.findIndex(function(order) {
         return order.id === id;
     });
 
-    if (index != -1) {
-        orders.splice(index, 1);
+    if (indexToDelete != -1) {
+        orders.splice(indexToDelete, 1);
         orderStorage.saveOrders(orders);
         orderList.renderOrders(orders, {
             onDelete: handleDelete,
@@ -82,6 +82,17 @@ const handleDelete = function(id) {
 // handleEdit function (table edit btn)
 const handleEdit = function(id) {
     console.log(`App.js: Requesting edit for order`, id);
+
+    let orderToEdit = orders.find(function(order) {
+        return order.id === id;
+    })
+
+    if (orderToEdit) {
+        orderForm.populateFormForEdit(orderToEdit);
+        console.log(`Editing order`, id);
+    } else {
+        console.log(`handleEdit: Order not found; no edit available`)
+    }
 };
 
 // init function: includes eventListeners to trigger other functions
