@@ -61,6 +61,22 @@ const handleClearOrderHistory = function() {
 // handleDelete function (table delete btn)
 const handleDelete = function(id) {
     console.log(`App.js: Requesting delete for order`, id);
+
+    let index = orders.findIndex(function(order) {
+        return order.id === id;
+    });
+
+    if (index != -1) {
+        orders.splice(index, 1);
+        orderStorage.saveOrders(orders);
+        orderList.renderOrders(orders, {
+            onDelete: handleDelete,
+            onEdit: handleEdit
+        });
+        console.log(`Successfully deleted order`, id);
+    } else {
+        console.log(`handleDelete: Index not found; no deletion occurred`);
+    }
 };
 
 // handleEdit function (table edit btn)

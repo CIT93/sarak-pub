@@ -27,6 +27,7 @@ export const loadOrders = function() {
     } catch (error) {
         console.error(`Error: data not loaded from localStorage - ${error}`);
         localStorage.removeItem(LOCAL_STORAGE_KEY);
+        return [];
     };
 
 };
