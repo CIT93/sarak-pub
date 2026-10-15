@@ -7,12 +7,14 @@ const quantityInput = shirtOrderForm.querySelector('#qty');
 const giftWrapInput = shirtOrderForm.querySelector('#gift-wrap');
 const sizeInputRadios = shirtOrderForm.querySelectorAll('input[name="size"]');
 
+const submitButton = shirtOrderForm.querySelector('button[type="submit"]');
+const clearButton = shirtOrderForm.querySelector('#clear-form-button');
+
 const hiddenOrderId = shirtOrderForm.querySelector('#order-id');
 
 // evaluate radio selection; checks if radio option is selected (radio.checked)
 // then returns it to variable getSelectedRadio, assigning it that value (radio.value)
 // const radio refers to each individual radio option
-// radioButtons is the function name (?)
 const getSelectedRadio = function(radioButtons) {
     for (const radio of radioButtons) {
         if (radio.checked) return radio.value;
@@ -31,12 +33,15 @@ const setSelectedRadio = function(radioButtons, valueToSet) {
 };
 
 // populateFormForEdit function for editing orders
-// set id, set qty, set radio, set giftwrap
+// set id, set qty, set radio, set giftwrap, change btn txt
 export const populateFormForEdit = function(order) {
     hiddenOrderId.value = order.id;
     quantityInput.value = order.qty;
     setSelectedRadio(sizeInputRadios, order.size);
     giftWrapInput.checked = order.giftWrap;
+
+    submitButton.textContent = 'Update Order';
+    clearButton.textContent = 'Cancel Edit';
 };
 
 // export collected data back to main app.js w/ object literal
@@ -55,4 +60,8 @@ export const clearForm = function() {
     quantityInput.value = 1;
     giftWrapInput.checked = false;
     sizeInputRadios[0].checked;
+
+    hiddenOrderId.value = '';
+    submitButton.textContent = 'Place Order';
+    clearButton.textContent = 'Clear Form';
 };

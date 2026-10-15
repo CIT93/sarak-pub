@@ -11,8 +11,9 @@ import * as orderList from "./order-list.js";
 // entry array literal
 const orders = [];
 
-// reference to form id
+// reference to form ids
 const shirtOrderForm = document.getElementById('order-form');
+const hiddenOrderId = shirtOrderForm.querySelector('#order-id');
 
 // reference to clear form button
 const clearFormButton = shirtOrderForm.querySelector('#clear-form-button');
@@ -25,20 +26,41 @@ const handleOrderSubmit = function(event) {
     event.preventDefault();
     const orderData = orderForm.getOrderInputs();
     const calculatedPrice = priceCalculator.calculateTotal(orderData);
-    const newOrder = {
+
+    const orderToSave = {
         ...orderData,
         ...calculatedPrice,
-        timestamp: new Date().toISOString(),
-        id: Date.now().toString()
     };
-    orders.push(newOrder);
+
+    if (hiddenOrderId.value) {
+        const indexOfObject = orders.findIndex(function(order) {
+            return order.id === hiddenOrderId.value;
+        });
+        if (indexOfObject !== -1) {
+            orderToSave.timestamp = orders[indexOfObject].timestamp;
+            orderToSave.id = orders[indexOfObject].id;
+            orders[indexOfObject] = orderToSave;
+        } else {
+            console.warn(`Order ${hiddenOrderId.value} not found; adding as new order instead`);
+            orderToSave.timestamp = new Date().toISOString();
+            orderToSave.id = Date.now().toString();
+            orders.push(orderToSave);
+        }
+    } else {
+        orderToSave.timestamp = new Date().toISOString();
+        orderToSave.id = Date.now().toString();
+        orders.push(orderToSave);
+    }
+
     console.log(orders);
     orderStorage.saveOrders(orders);
-    // resultsDisplay.displayOrder(newOrder);
+    // resultsDisplay.displayOrder(orderToSave);
     orderList.renderOrders(orders, {
         onDelete: handleDelete,
         onEdit: handleEdit
     });
+
+    orderForm.clearForm();
 };
 
 // handleClearForm function (clear form btn)
@@ -56,17 +78,17 @@ const handleClearOrderHistory = function() {
         onDelete: handleDelete,
         onEdit: handleEdit
     });
+    orderForm.clearForm();
 };
 
 // handleDelete function (table delete btn)
 const handleDelete = function(id) {
     console.log(`App.js: Requesting delete for order`, id);
 
-    let indexToDelete = orders.findIndex(function(order) {
+    const indexToDelete = orders.findIndex(function(order) {
         return order.id === id;
     });
-
-    if (indexToDelete != -1) {
+    if (indexToDelete !== -1) {
         orders.splice(indexToDelete, 1);
         orderStorage.saveOrders(orders);
         orderList.renderOrders(orders, {
@@ -77,21 +99,23 @@ const handleDelete = function(id) {
     } else {
         console.log(`handleDelete: Index not found; no deletion occurred`);
     }
+
+    orderForm.clearForm();
 };
 
 // handleEdit function (table edit btn)
 const handleEdit = function(id) {
     console.log(`App.js: Requesting edit for order`, id);
 
-    let orderToEdit = orders.find(function(order) {
+    const orderToEdit = orders.find(function(order) {
         return order.id === id;
-    })
+    });
 
     if (orderToEdit) {
         orderForm.populateFormForEdit(orderToEdit);
         console.log(`Editing order`, id);
     } else {
-        console.log(`handleEdit: Order not found; no edit available`)
+        console.log(`handleEdit: Order not found; no edit available`);
     }
 };
 
